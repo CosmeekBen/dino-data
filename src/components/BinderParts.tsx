@@ -1,6 +1,6 @@
 import { memo, useLayoutEffect, useRef, type CSSProperties } from 'react'
 import type { DinoCard, Person } from '../types'
-import { engagementScore, rarityOf, type Rarity } from '../lib/curve'
+import { rarityOf, type Rarity } from '../lib/curve'
 import { COL_W, N_STRIPS, PAGE, PER_PAGE, columnSpan } from '../lib/binderGeometry'
 import { STRIP_OVERLAP, type BinderEngine, type SheetHandle, type StripEls } from '../lib/binderEngine'
 import { useTilt } from '../lib/useTilt'
@@ -11,18 +11,10 @@ const pw = (f: number) => `calc(var(--pw) * ${f})`
 
 // ───────── Couverture ─────────
 
-/** La carte la plus engageante d'un classeur : c'est elle qu'on expose dans la fenêtre de la couverture. */
-export function featuredCard(cards: DinoCard[]) {
-  let best: DinoCard | undefined
-  for (const c of cards) if (!best || engagementScore(c.stats) > engagementScore(best.stats)) best = c
-  return best
-}
-
 const pad2 = (n: number) => String(n).padStart(2, '0')
 
-/** Plat avant : matière soft-touch mate, nom gaufré ton sur ton, fenêtre qui expose la meilleure carte. */
-export function CoverArt({ person, cards, index }: { person: Person; cards: DinoCard[]; index: number }) {
-  const star = featuredCard(cards)
+/** Plat avant : matière soft-touch mate, nom gaufré ton sur ton, numéro de classeur. */
+export function CoverArt({ person, count, index }: { person: Person; count: number; index: number }) {
   return (
     <div className="cover-art" style={{ '--c': person.color } as CSSProperties}>
       <i className="ca-hinge" />
@@ -30,16 +22,12 @@ export function CoverArt({ person, cards, index }: { person: Person; cards: Dino
         <span className="ca-mark">DinoDex</span>
         <span className="ca-no">Nº {pad2(index + 1)}</span>
       </div>
-      <div className="ca-window">
-        {star ? <CardFace card={star} /> : <i className="ca-empty" />}
-        <i className="ca-film" />
-      </div>
       <div className="ca-foot">
         <strong className="ca-name" style={{ '--len': person.name.length } as CSSProperties}>
           {person.name}
         </strong>
         <span className="ca-meta">
-          {cards.length} dino{cards.length > 1 ? 's' : ''} — Saison 01
+          {count} dino{count > 1 ? 's' : ''} — Saison 01
         </span>
       </div>
     </div>
