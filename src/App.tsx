@@ -39,6 +39,7 @@ export default function App() {
       <Binder
         key={person.id}
         person={person}
+        index={data.people.indexOf(person)}
         cards={data.cards.filter((c) => c.owner === person.id)}
         hiddenId={open?.card.id ?? null}
         onOpenCard={openCard}

@@ -1,5 +1,6 @@
 import { memo, useLayoutEffect, useRef, type CSSProperties } from 'react'
 import type { DinoCard, Person } from '../types'
+import { engagementScore, rarityOf, type Rarity } from '../lib/curve'
 import { COL_W, N_STRIPS, PAGE, PER_PAGE, columnSpan } from '../lib/binderGeometry'
 import { STRIP_OVERLAP, type BinderEngine, type SheetHandle, type StripEls } from '../lib/binderEngine'
 import { useTilt } from '../lib/useTilt'
@@ -10,63 +11,65 @@ const pw = (f: number) => `calc(var(--pw) * ${f})`
 
 // ───────── Couverture ─────────
 
-/** Empreinte de dinosaure dorée à chaud sur le plat. */
-function Footprint() {
-  return (
-    <svg className="ca-print" viewBox="0 0 100 110" aria-hidden>
-      <defs>
-        <linearGradient id="foil" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#8a6420" />
-          <stop offset=".3" stopColor="#f6dc86" />
-          <stop offset=".5" stopColor="#b48a2e" />
-          <stop offset=".68" stopColor="#fff1b0" />
-          <stop offset="1" stopColor="#8f6a22" />
-        </linearGradient>
-      </defs>
-      <g fill="url(#foil)">
-        <path d="M50 108c-13 0-21-9-20-21 1-12 9-19 20-19s19 7 20 19c1 12-7 21-20 21z" />
-        <path d="M41 70C31 62 21 45 15 28L10 11l13 12c8 13 17 29 24 40z" />
-        <path d="M45 64c-1-18 0-36 2-52L50 0l3 12c2 16 3 34 2 52z" />
-        <path d="M59 70c10-8 20-25 26-42l5-17-13 12c-8 13-17 29-24 40z" />
-      </g>
-    </svg>
-  )
+/** La carte la plus engageante d'un classeur : c'est elle qu'on expose dans la fenêtre de la couverture. */
+export function featuredCard(cards: DinoCard[]) {
+  let best: DinoCard | undefined
+  for (const c of cards) if (!best || engagementScore(c.stats) > engagementScore(best.stats)) best = c
+  return best
 }
 
-/** Plat avant : simili-cuir grainé, surpiqûres, dorure, porte-étiquette métal avec le prénom écrit à la main. */
-export function CoverArt({ person, count }: { person: Person; count: number }) {
+const pad2 = (n: number) => String(n).padStart(2, '0')
+
+/** Plat avant : matière soft-touch mate, nom gaufré ton sur ton, fenêtre qui expose la meilleure carte. */
+export function CoverArt({ person, cards, index }: { person: Person; cards: DinoCard[]; index: number }) {
+  const star = featuredCard(cards)
   return (
     <div className="cover-art" style={{ '--c': person.color } as CSSProperties}>
-      <i className="ca-stitch" />
-      <div className="ca-brand">
-        <Footprint />
-        <span>DinoDex</span>
+      <i className="ca-hinge" />
+      <div className="ca-top">
+        <span className="ca-mark">DinoDex</span>
+        <span className="ca-no">Nº {pad2(index + 1)}</span>
       </div>
-      <div className="ca-label">
-        <i className="ca-rivet l" />
-        <i className="ca-rivet r" />
-        <div className="ca-card">
-          <span className="ca-name">{person.name}</span>
-          <span className="ca-count">{count} dinosaure{count > 1 ? 's' : ''}</span>
-        </div>
+      <div className="ca-window">
+        {star ? <CardFace card={star} /> : <i className="ca-empty" />}
+        <i className="ca-film" />
       </div>
-      <i className="ca-corner top" />
-      <i className="ca-corner bottom" />
+      <div className="ca-foot">
+        <strong className="ca-name" style={{ '--len': person.name.length } as CSSProperties}>
+          {person.name}
+        </strong>
+        <span className="ca-meta">
+          {cards.length} dino{cards.length > 1 ? 's' : ''} — Saison 01
+        </span>
+      </div>
     </div>
   )
 }
 
-/** Intérieur du plat avant : toile + ex-libris. */
-export function InsideFront({ person, count }: { person: Person; count: number }) {
+const RARITIES: Rarity[] = ['commune', 'rare', 'épique', 'légendaire']
+
+/** Intérieur du plat avant : fiche de la collection. */
+export function InsideFront({ person, cards }: { person: Person; cards: DinoCard[] }) {
+  const counts = RARITIES.map((r) => cards.filter((c) => rarityOf(c.stats) === r).length)
+  const max = Math.max(1, ...counts)
   return (
     <div className="lining is-front">
-      <div className="ex-libris">
-        <small>Ce classeur appartient à</small>
-        <strong>{person.name}</strong>
-        <span>
-          {count} dino{count > 1 ? 's' : ''} capturé{count > 1 ? 's' : ''} sur Instagram
+      <div className="sheet-card">
+        <span className="sc-kicker">Collection</span>
+        <strong className="sc-name">{person.name}</strong>
+        <span className="sc-count">
+          {cards.length}
+          <small> dino{cards.length > 1 ? 's' : ''}</small>
         </span>
-        <em>DinoDex · collection officielle</em>
+        <ul className="sc-bars">
+          {RARITIES.map((r, i) => (
+            <li key={r} className={`rarity-${r}`}>
+              <span>{r}</span>
+              <i style={{ '--v': counts[i] / max } as CSSProperties} />
+              <b>{counts[i]}</b>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   )
@@ -76,11 +79,12 @@ export function InsideBack() {
   return (
     <div className="lining is-back">
       <span className="lining-mark">DinoDex</span>
+      <span className="lining-note">Place pour les prochains dinos</span>
     </div>
   )
 }
 
-/** Anneaux chromés : chaque anneau est un empilement d'arcs, pour garder du volume sous tous les angles. */
+/** Anneaux métal : chaque anneau est un empilement d'arcs, pour garder du volume sous tous les angles. */
 export function Rings({ refFor }: { refFor: (key: string) => (el: HTMLElement | null) => void }) {
   return (
     <>

@@ -3,21 +3,32 @@ import type { CardsData } from '../types'
 import type { FlyFrom } from './Binder'
 import { CoverArt } from './BinderParts'
 
-/** Légère rotation de chaque classeur posé sur le bureau, pour un rangement naturel. */
-const ROT = [-4, 2.5, -1.5, 3.5, -3, 1.5]
+/** Légère rotation de chaque classeur posé sur le plateau, pour un rangement naturel. */
+const ROT = [-3, 2, -1.5, 2.5, -2.5, 1.5]
 
 export function Home({ data, onPick }: { data: CardsData; onPick: (id: string, from: FlyFrom) => void }) {
   return (
     <main className="home">
-      <header>
-        <h1>
+      <header className="home-top">
+        <span>DinoDex — Saison 01</span>
+        <span>
+          {data.cards.length} dinos · {data.people.length} classeurs
+        </span>
+      </header>
+
+      <section className="home-hero">
+        <h1 className="wordmark">
           Dino<span>Dex</span>
         </h1>
-        <p>Chaque post Instagram devient un dinosaure. Prends un classeur sur le bureau.</p>
-      </header>
+        <p className="lede">
+          Chaque post Instagram devient un dinosaure. La courbe de ses stats dessine l’espèce, l’engagement fixe la
+          rareté.
+        </p>
+      </section>
+
       <ul className="desk-row">
         {data.people.map((p, i) => {
-          const n = data.cards.filter((c) => c.owner === p.id).length
+          const cards = data.cards.filter((c) => c.owner === p.id)
           const rot = ROT[i % ROT.length]
           return (
             <li key={p.id} style={{ '--c': p.color, '--rot': `${rot}deg`, '--i': i } as CSSProperties}>
@@ -39,10 +50,16 @@ export function Home({ data, onPick }: { data: CardsData; onPick: (id: string, f
                   </span>
                   <span className="hb-face hb-edge" />
                   <span className="hb-top">
-                    <CoverArt person={p} count={n} />
+                    <CoverArt person={p} cards={cards} index={i} />
                   </span>
                 </span>
               </button>
+              <p className="hb-caption">
+                <span>Nº {String(i + 1).padStart(2, '0')}</span>
+                <span>
+                  {cards.length} dino{cards.length > 1 ? 's' : ''}
+                </span>
+              </p>
             </li>
           )
         })}

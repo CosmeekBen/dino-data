@@ -12,6 +12,8 @@ export interface FlyFrom {
 
 interface Props {
   person: Person
+  /** rang du classeur dans la collection (numéro sur la couverture) */
+  index: number
   cards: DinoCard[]
   hiddenId: string | null
   onOpenCard: (card: DinoCard, rect: DOMRect) => void
@@ -29,7 +31,7 @@ function useViewport() {
   return vp
 }
 
-export function Binder({ person, cards, hiddenId, onOpenCard, onBack, flyFrom }: Props) {
+export function Binder({ person, index, cards, hiddenId, onOpenCard, onBack, flyFrom }: Props) {
   const vp = useViewport()
   const dims = useMemo(() => computeDims(vp.w, vp.h), [vp.w, vp.h])
   const pages = useMemo(() => {
@@ -118,22 +120,30 @@ export function Binder({ person, cards, hiddenId, onOpenCard, onBack, flyFrom }:
     '--persp': `${dims.persp}px`,
   } as CSSProperties
 
+  const pad = (n: number) => String(n).padStart(2, '0')
   const totalPages = sheets * 2
   const label =
     count === 0
       ? 'Couverture'
       : count === 1
-        ? 'Page 1'
+        ? `p. 01 / ${pad(totalPages)}`
         : count > sheets
-          ? `Page ${totalPages} · fin`
-          : `Pages ${2 * count - 2}–${2 * count - 1}`
+          ? `p. ${pad(totalPages)} / ${pad(totalPages)}`
+          : `p. ${pad(2 * count - 2)}–${pad(2 * count - 1)} / ${pad(totalPages)}`
 
   return (
     <main className="binder-view" style={vars}>
       <header className="bv-top">
         <button className="back-btn" onClick={onBack}>
-          ← Les classeurs
+          <Arrow dir={-1} /> Classeurs
         </button>
+        <div className="bv-title">
+          <strong>{person.name}</strong>
+          <span>
+            Nº {pad(index + 1)} · {cards.length} dino{cards.length > 1 ? 's' : ''}
+          </span>
+        </div>
+        <span className="bv-page">{label}</span>
       </header>
 
       <div
@@ -182,11 +192,11 @@ export function Binder({ person, cards, hiddenId, onOpenCard, onBack, flyFrom }:
             ))}
 
           <div className="q cover-out" ref={r('cover-out')}>
-            <CoverArt person={person} count={cards.length} />
+            <CoverArt person={person} cards={cards} index={index} />
             <i className="shade" ref={r('cover-out-shade')} />
           </div>
           <div className="q cover-in" ref={r('cover-in')}>
-            <InsideFront person={person} count={cards.length} />
+            <InsideFront person={person} cards={cards} />
             <i className="shade" ref={r('cover-in-shade')} />
           </div>
           <div className="q edge cover-edge-r" ref={r('cover-edge-r')} />
@@ -195,18 +205,30 @@ export function Binder({ person, cards, hiddenId, onOpenCard, onBack, flyFrom }:
         </div>
       </div>
 
-      <nav className="pager">
-        <button onClick={() => engine.turn(-1)} disabled={count === 0} aria-label="Page précédente">
-          ◀
+      <nav className="pager" aria-label="Pages">
+        <button className="pg-btn" onClick={() => engine.turn(-1)} disabled={count === 0} aria-label="Page précédente">
+          <Arrow dir={-1} />
         </button>
-        <span>{label}</span>
-        <button onClick={() => engine.turn(1)} disabled={count > sheets} aria-label="Page suivante">
-          ▶
+        <ol className="pg-track" aria-hidden>
+          {Array.from({ length: sheets + 2 }, (_, k) => (
+            <li key={k} className={k === count ? 'on' : k < count ? 'past' : undefined} />
+          ))}
+        </ol>
+        <button className="pg-btn" onClick={() => engine.turn(1)} disabled={count > sheets} aria-label="Page suivante">
+          <Arrow dir={1} />
         </button>
       </nav>
       <p className={`hint${touched ? ' gone' : ''}`}>
-        {count === 0 ? 'Attrape le bord de la couverture pour ouvrir' : 'Attrape le bord d’une page et fais-la glisser'}
+        {count === 0 ? 'Attrape le bord de la couverture pour l’ouvrir' : 'Attrape le bord d’une page et fais-la glisser'}
       </p>
     </main>
+  )
+}
+
+function Arrow({ dir }: { dir: 1 | -1 }) {
+  return (
+    <svg className="arrow" viewBox="0 0 16 16" aria-hidden style={{ transform: dir < 0 ? 'scaleX(-1)' : undefined }}>
+      <path d="M2 8h11M9 3.5 13.5 8 9 12.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   )
 }

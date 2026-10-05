@@ -10,7 +10,7 @@ npm run build
 ```
 
 ## Le classeur
-Les classeurs sont dessinés en 3D sur un bureau en bois : simili-cuir grainé, surpiqûres, dorure, porte-étiquette, anneaux chromés et pages à pochettes plastiques (textures procédurales dans `src/lib/textures.ts`).
+Les classeurs sont dessinés en 3D sur un fond studio clair : couverture en matière mate soft-touch avec une fenêtre qui expose la meilleure carte du classeur, nom gaufré ton sur ton, anneaux métal et pages à pochettes plastiques. Typo : Bricolage Grotesque (titres) + IBM Plex Mono (données), auto-hébergées via `@fontsource`.
 
 - **Tourner une page** : attraper le bord d'une page (ou de la couverture) et la faire glisser ; elle se plie et suit le doigt/la souris, puis retombe selon l'élan. Un clic, les flèches du clavier ou les boutons font la même chose en automatique.
 - Au survol du bord, le coin se soulève légèrement.
