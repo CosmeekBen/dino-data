@@ -581,8 +581,10 @@ export class BinderEngine {
     this.opacity('shadow-closed', 1 - c * c)
 
     // plat arrière (fixe)
+    // plat arrière : couches empilées sous la face intérieure (l'épaisseur suit les coins arrondis)
+    for (let k = 0; k < BOARD_LAYERS; k++)
+      this.place(`back-body-${k}`, V, translate(d.r, -d.ch / 2, (-d.tc * (BOARD_LAYERS - k)) / BOARD_LAYERS), 5 + k)
     this.place('back-in', V, translate(d.r, -d.ch / 2, 0), 10)
-    this.place('back-edge', V, chain(translate(d.r, d.ch / 2, 0), rotX(-90)), 11)
 
     // dos + mécanisme + anneaux, entraînés par l'ouverture de la couverture
     const pose = coverPose(d, c)
@@ -590,6 +592,9 @@ export class BinderEngine {
     this.face('spine-out', V, cam, mul(S, translate(0, 0, d.tc)), 2 * d.r, d.ch, 20)
     this.face('spine-in', V, cam, chain(S, translate(2 * d.r, 0, 0), rotY(180)), 2 * d.r, d.ch, 20)
     this.place('spine-edge', V, chain(S, translate(0, d.ch, 0), rotX(90)), 21)
+    // tranche basse du dos : utile à plat (elle comble l'épaisseur entre les deux plats), parasite quand le dos est debout
+    const se = clamp((c - 0.35) / 0.3, 0, 1)
+    this.opacity('spine-edge', se * se * (3 - 2 * se))
     const mw = 2 * (d.r - d.h0) - 4
     const mh = d.ph * 0.82
     this.face('mech', V, cam, chain(S, translate(d.r + mw / 2, d.ch / 2 - mh / 2, -2), rotY(180)), mw, mh, 22)
@@ -612,11 +617,14 @@ export class BinderEngine {
     // plat avant
     const F = chain(translate(pose.ex, -d.ch / 2, pose.ez), rotY(-pose.panel))
     const zc = coverOpen ? 30 : 900
-    this.face('cover-out', V, cam, mul(F, translate(0, 0, d.tc)), d.cw, d.ch, zc)
-    this.face('cover-in', V, cam, chain(F, translate(d.cw, 0, 0), rotY(180)), d.cw, d.ch, zc)
-    this.place('cover-edge-r', V, chain(F, translate(d.cw, 0, 0), rotY(-90)), zc + 1)
-    this.place('cover-edge-t', V, mul(F, rotX(90)), zc + 1)
-    this.place('cover-edge-b', V, chain(F, translate(0, d.ch, 0), rotX(90)), zc + 1)
+    // épaisseur du plat : couches de même silhouette entre les deux faces, peintes de la plus éloignée à la plus proche
+    const outside = this.facing(mul(F, translate(0, 0, d.tc)), cam, d.cw, d.ch)
+    for (let k = 1; k < BOARD_LAYERS; k++) {
+      const m = mul(F, translate(0, 0, (d.tc * k) / BOARD_LAYERS))
+      this.place(`cover-body-${k}`, V, m, zc + (outside ? k : BOARD_LAYERS - k))
+    }
+    this.face('cover-out', V, cam, mul(F, translate(0, 0, d.tc)), d.cw, d.ch, zc + BOARD_LAYERS + 1)
+    this.face('cover-in', V, cam, chain(F, translate(d.cw, 0, 0), rotY(180)), d.cw, d.ch, zc + BOARD_LAYERS + 1)
     const [dOut, sOut] = shade(pose.panel, 1, pose.ex + d.cw / 2, 0, pose.ez, cam)
     const [dIn, sIn] = shade(pose.panel, -1, pose.ex - d.cw / 2, 0, pose.ez, cam)
     this.bg('cover-out-shade', fill(dOut * 0.75, sOut * 0.25))
@@ -669,9 +677,14 @@ export class BinderEngine {
     if (el) this.setFace(el, V, cam, m, w, h, z)
   }
 
-  private setFace(el: HTMLElement, V: M4, cam: [number, number, number], m: M4, w: number, h: number, z: number) {
+  /** Vrai si la caméra voit le recto de la face transformée par `m`. */
+  private facing(m: M4, cam: [number, number, number], w: number, h: number) {
     const [cx, cy, cz] = apply(m, w / 2, h / 2)
-    const seen = m[8] * (cam[0] - cx) + m[9] * (cam[1] - cy) + m[10] * (cam[2] - cz) > 0
+    return m[8] * (cam[0] - cx) + m[9] * (cam[1] - cy) + m[10] * (cam[2] - cz) > 0
+  }
+
+  private setFace(el: HTMLElement, V: M4, cam: [number, number, number], m: M4, w: number, h: number, z: number) {
+    const seen = this.facing(m, cam, w, h)
     put(el, 'visibility', seen ? '' : 'hidden')
     if (seen) this.setQuad(el, V, m, z)
   }
@@ -792,6 +805,9 @@ export class BinderEngine {
     this.bg('cast-l', layersL.join(',') || 'none')
   }
 }
+
+/** Nombre de couches qui donnent leur épaisseur aux plats de couverture. */
+export const BOARD_LAYERS = 5
 
 /** Recouvrement des bandes d'une page pliée, pour éviter les jours entre elles. */
 export const STRIP_OVERLAP = 1

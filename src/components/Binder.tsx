@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import type { DinoCard, Person } from '../types'
 import { PER_PAGE, computeDims } from '../lib/binderGeometry'
-import { BinderEngine } from '../lib/binderEngine'
+import { BOARD_LAYERS, BinderEngine } from '../lib/binderEngine'
 import { CoverArt, InsideBack, InsideFront, Rings, Sheet, type SlotActions } from './BinderParts'
 
 /** Position du classeur sur l'accueil, pour l'animer jusqu'au bureau. */
@@ -118,6 +118,7 @@ export function Binder({ person, index, cards, hiddenId, onOpenCard, onBack, fly
     '--t': `${dims.t}px`,
     '--wire': `${dims.wire}px`,
     '--persp': `${dims.persp}px`,
+    '--rad': `${Math.round(dims.cw * 0.03)}px`,
   } as CSSProperties
 
   const pad = (n: number) => String(n).padStart(2, '0')
@@ -159,10 +160,12 @@ export function Binder({ person, index, cards, hiddenId, onOpenCard, onBack, fly
           <div className="q desk-shadow open" ref={r('shadow-open')} />
           <div className="q desk-shadow closed" ref={r('shadow-closed')} />
 
+          {Array.from({ length: BOARD_LAYERS }, (_, k) => (
+            <div key={k} className="q board back" ref={r(`back-body-${k}`)} />
+          ))}
           <div className="q back-in" ref={r('back-in')}>
             <InsideBack />
           </div>
-          <div className="q edge back-edge" ref={r('back-edge')} />
 
           <div className="q stack" ref={r('stack-r')} />
           <div className="q stack" ref={r('stack-l')} />
@@ -191,17 +194,17 @@ export function Binder({ person, index, cards, hiddenId, onOpenCard, onBack, fly
               />
             ))}
 
+          {Array.from({ length: BOARD_LAYERS - 1 }, (_, k) => (
+            <div key={k} className="q board" ref={r(`cover-body-${k + 1}`)} />
+          ))}
           <div className="q cover-out" ref={r('cover-out')}>
-            <CoverArt person={person} cards={cards} index={index} />
+            <CoverArt person={person} count={cards.length} index={index} />
             <i className="shade" ref={r('cover-out-shade')} />
           </div>
           <div className="q cover-in" ref={r('cover-in')}>
             <InsideFront person={person} cards={cards} />
             <i className="shade" ref={r('cover-in-shade')} />
           </div>
-          <div className="q edge cover-edge-r" ref={r('cover-edge-r')} />
-          <div className="q edge cover-edge-t" ref={r('cover-edge-t')} />
-          <div className="q edge cover-edge-b" ref={r('cover-edge-b')} />
         </div>
       </div>
 

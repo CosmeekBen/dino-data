@@ -31,19 +31,19 @@ body::after { /* grain photo très léger */
 }
 
 /* ───────── Matière soft-touch ───────── */
-.cover-art, .hb-spine, .lining, .spine-out, .spine-in, .edge, .hb-edge, .hb-back, .hb-side {
+.cover-art, .hb-spine, .hb-layer, .lining, .spine-out, .spine-in, .edge, .board {
   --shell: color-mix(in oklch, var(--c) 88%, #26221f);
   --shell-deep: color-mix(in oklch, var(--c) 62%, #141210);
   --shell-ink: color-mix(in oklch, var(--c) 70%, #0d0c0b);
 }
-.edge, .hb-edge, .hb-back {
+.edge {
   background-color: var(--shell-deep);
   background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.12), transparent 35%, rgba(0, 0, 0, 0.18));
 }
 
 .cover-art {
   position: absolute; inset: 0; container-type: size; overflow: hidden; color: var(--shell-ink);
-  border-radius: 0 2.6cqw 2.6cqw 0;
+  border-radius: inherit;
   background-color: var(--shell);
   background-image:
     radial-gradient(130% 90% at 18% 0%, rgba(255, 255, 255, 0.22), transparent 58%),
@@ -68,27 +68,10 @@ body::after { /* grain photo très léger */
   color: rgba(255, 255, 255, 0.82); text-shadow: 0 -0.12cqw 0 rgba(0, 0, 0, 0.12);
 }
 .ca-no { font: 500 2.7cqw/1 var(--mono); letter-spacing: 0.08em; color: rgba(255, 255, 255, 0.7); }
-.ca-window { /* fenêtre gaufrée qui expose la meilleure carte */
-  position: absolute; left: 31cqw; width: 48cqw; top: 16cqw; aspect-ratio: var(--card-ratio);
-  border-radius: 3.4cqw; padding: 2cqw; background: color-mix(in oklch, var(--shell) 70%, #000);
-  box-shadow:
-    inset 0 0.7cqw 1.4cqw rgba(0, 0, 0, 0.45), inset 0 -0.2cqw 0.4cqw rgba(255, 255, 255, 0.12),
-    0 0.25cqw 0 rgba(255, 255, 255, 0.28), 0 -0.15cqw 0 rgba(0, 0, 0, 0.12);
-  transform: rotate(2.5deg);
-}
-.ca-window > .card-art, .ca-window > .card-fallback, .ca-empty {
-  display: block; width: 100%; height: 100%; border-radius: 2.2cqw; overflow: hidden;
-  box-shadow: 0 0.4cqw 1cqw rgba(0, 0, 0, 0.35);
-}
-.ca-empty { background: rgba(255, 255, 255, 0.08); box-shadow: inset 0 0 0 0.3cqw rgba(255, 255, 255, 0.15); }
-.ca-film { /* film transparent de la fenêtre */
-  position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
-  background: linear-gradient(118deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.06) 30%, transparent 46%, transparent 80%, rgba(255, 255, 255, 0.12));
-}
-.ca-foot { position: absolute; left: 14cqw; right: 6cqw; bottom: 8cqw; display: grid; gap: 2.4cqw; }
+.ca-foot { position: absolute; left: 14cqw; right: 6cqw; bottom: 9cqw; display: grid; gap: 3cqw; }
 .ca-name { /* nom gaufré ton sur ton */
   /* le nom remplit la largeur sans jamais passer à la ligne */
-  font: 800 min(23cqw, calc(80cqw / (var(--len, 5) * 0.6)))/0.8 var(--display); letter-spacing: -0.06em; font-variation-settings: 'opsz' 96;
+  font: 800 min(27cqw, calc(80cqw / (var(--len, 5) * 0.6)))/0.8 var(--display); letter-spacing: -0.06em; font-variation-settings: 'opsz' 96;
   white-space: nowrap;
   color: color-mix(in oklch, var(--shell) 84%, #000);
   text-shadow: 0 0.22cqw 0 rgba(255, 255, 255, 0.26), 0 -0.12cqw 0 rgba(0, 0, 0, 0.16);
@@ -117,6 +100,7 @@ body::after { /* grain photo très léger */
   --bt: calc(var(--bw) * 0.145);
   --btc: max(2px, calc(var(--bw) * 0.0106));
   --tex: var(--bw);
+  --rad: calc(var(--bw) * 0.03);
   list-style: none; margin: 0; padding: 1.5rem 0 1rem; display: flex; flex-wrap: wrap; align-content: center;
   gap: clamp(1.5rem, 4vw, 3.5rem); justify-content: center;
   perspective: 1500px; perspective-origin: 50% 20%; transform-style: preserve-3d;
@@ -130,7 +114,7 @@ body::after { /* grain photo très léger */
 }
 .hb:hover, .hb:focus-visible { transform: rotateX(13deg) rotateZ(0deg); outline: none; }
 .hb-shadow {
-  position: absolute; inset: 0; border-radius: 3%;
+  position: absolute; inset: 0; border-radius: 0 var(--rad) var(--rad) 0;
   box-shadow: 0 calc(var(--bt) * 0.7) calc(var(--bt) * 1.3) rgba(60, 45, 30, 0.32), 0 calc(var(--bt) * 0.18) calc(var(--bt) * 0.3) rgba(60, 45, 30, 0.3);
   transition: box-shadow 0.5s;
 }
@@ -140,21 +124,15 @@ body::after { /* grain photo très léger */
 .hb-body { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform 0.5s cubic-bezier(.2, .8, .2, 1); }
 .hb:hover .hb-body, .hb:focus-visible .hb-body { transform: translateZ(calc(var(--bt) * 0.9)); }
 .hb-face { position: absolute; display: block; }
-.hb-top { position: absolute; inset: 0; transform: translateZ(calc(var(--bt) + var(--btc))); }
-/* tranches avant : plat avant, intérieur ouvert (pages + anneaux), plat arrière */
-.hb-edge { left: 0; top: 100%; width: 100%; height: var(--btc); transform-origin: 50% 0; transform: translateZ(calc(var(--bt) + var(--btc))) rotateX(-90deg); border-radius: 0 0 2px 0; }
-.hb-gap {
-  left: 0.4%; top: 100%; width: 99%; height: var(--bt); transform-origin: 50% 0; transform: translateZ(var(--bt)) rotateX(-90deg);
-  background:
-    linear-gradient(0deg, transparent calc(var(--btc) * 1.2), #3a3836 calc(var(--btc) * 1.2), #121110 calc(var(--btc) * 1.6), #3a3836 calc(var(--btc) * 2.1), #121110 calc(var(--btc) * 2.6), #3a3836 calc(var(--btc) * 3.1), transparent calc(var(--btc) * 3.2)),
-    linear-gradient(180deg, #0a0a09, #1f1d1b 70%, #0e0d0c);
+.hb-top { position: absolute; inset: 0; border-radius: 0 var(--rad) var(--rad) 0; transform: translateZ(calc(var(--bt) + var(--btc))); }
+/* épaisseur : 22 couches de même silhouette que la couverture, donc les coins arrondis restent nets sous tous les angles */
+.hb-layer {
+  position: absolute; inset: 0; display: block; border-radius: 0 var(--rad) var(--rad) 0;
+  transform: translateZ(calc((var(--bt) + var(--btc)) * var(--k) / 22));
 }
-.hb-back { left: 0; top: 100%; width: 100%; height: var(--btc); transform-origin: 50% 0; transform: translateZ(var(--btc)) rotateX(-90deg); }
-.hb-side {
-  left: 100%; top: 0; width: calc(var(--bt) + var(--btc)); height: 100%; transform-origin: 0 50%; transform: rotateY(-90deg);
-  background: linear-gradient(90deg,
-    var(--shell-deep) var(--btc), #2b2926 var(--btc), #3d3a36 50%, #24221f calc(100% - var(--btc)), var(--shell-deep) calc(100% - var(--btc)));
-}
+.hb-layer.board { background: var(--shell-deep); }
+.hb-layer.page { inset: 2.2% 3% 2.2% 0; border-radius: 0 calc(var(--rad) * 0.6) calc(var(--rad) * 0.6) 0; background: #1d1c1a; }
+.hb-layer.page.alt { background: #3a3835; }
 .hb-spine {
   left: 0; top: 0; width: calc(var(--bt) + var(--btc)); height: 100%; transform-origin: 0 50%; transform: rotateY(-90deg);
   display: grid; place-items: center; border-radius: 3px;
@@ -199,14 +177,14 @@ body::after { /* grain photo très léger */
 .q { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
 
 /* ombres sur le bureau (taches floues, projetées avec le classeur) */
-.desk-shadow { height: var(--ch); border-radius: 2%; pointer-events: none; background: rgba(58, 42, 28, 0.42); }
+.desk-shadow { height: var(--ch); border-radius: var(--rad); pointer-events: none; background: rgba(58, 42, 28, 0.42); }
 .desk-shadow.open { width: calc((var(--r) + var(--cw)) * 2); filter: blur(calc(var(--pw) * 0.035)); }
 .desk-shadow.closed { width: var(--cw); filter: blur(calc(var(--pw) * 0.06)); }
 
 /* plat arrière (fixe) */
-.back-in { width: var(--cw); height: var(--ch); border-radius: 0 1.2% 1.2% 0; overflow: hidden; isolation: isolate; }
-.edge.back-edge, .edge.cover-edge-b, .edge.cover-edge-t { width: var(--cw); height: var(--tc); }
-.edge.cover-edge-r { width: var(--tc); height: var(--ch); }
+.back-in { width: var(--cw); height: var(--ch); border-radius: 0 var(--rad) var(--rad) 0; overflow: hidden; isolation: isolate; }
+/* épaisseur des plats : couches de même silhouette arrondie que les faces */
+.board { width: var(--cw); height: var(--ch); border-radius: 0 var(--rad) var(--rad) 0; pointer-events: none; background: var(--shell-deep); }
 .edge.spine-edge { width: calc(var(--r) * 2); height: var(--tc); }
 
 /* intérieur des couvertures : rabat de la matière + microfibre */
@@ -292,8 +270,8 @@ body::after { /* grain photo très léger */
 
 /* plat avant (mobile) */
 .cover-out, .cover-in { width: var(--cw); height: var(--ch); overflow: hidden; isolation: isolate; cursor: grab; }
-.cover-out { border-radius: 0 1.2% 1.2% 0; }
-.cover-in { border-radius: 1.2% 0 0 1.2%; }
+.cover-out { border-radius: 0 var(--rad) var(--rad) 0; }
+.cover-in { border-radius: var(--rad) 0 0 var(--rad); }
 .shade { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
 
 /* feuillets */

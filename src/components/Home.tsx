@@ -6,6 +6,9 @@ import { CoverArt } from './BinderParts'
 /** Légère rotation de chaque classeur posé sur le plateau, pour un rangement naturel. */
 const ROT = [-3, 2, -1.5, 2.5, -2.5, 1.5]
 
+/** Couches de l'épaisseur d'un classeur fermé, de bas en haut. */
+const LAYERS = ['board', 'board', ...Array.from({ length: 18 }, (_, k) => (k % 2 ? 'page' : 'page alt')), 'board', 'board']
+
 export function Home({ data, onPick }: { data: CardsData; onPick: (id: string, from: FlyFrom) => void }) {
   return (
     <main className="home">
@@ -42,15 +45,15 @@ export function Home({ data, onPick }: { data: CardsData; onPick: (id: string, f
               >
                 <span className="hb-shadow" />
                 <span className="hb-body">
-                  <span className="hb-face hb-back" />
-                  <span className="hb-face hb-gap" />
-                  <span className="hb-face hb-side" />
+                  {/* épaisseur : couches de même silhouette (plat arrière, bloc de pages, plat avant) */}
+                  {LAYERS.map((l, k) => (
+                    <span key={k} className={`hb-layer ${l}`} style={{ '--k': k } as CSSProperties} />
+                  ))}
                   <span className="hb-face hb-spine">
                     <span className="hb-spine-label">{p.name}</span>
                   </span>
-                  <span className="hb-face hb-edge" />
                   <span className="hb-top">
-                    <CoverArt person={p} cards={cards} index={i} />
+                    <CoverArt person={p} count={cards.length} index={i} />
                   </span>
                 </span>
               </button>
