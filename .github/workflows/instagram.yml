@@ -1,0 +1,57 @@
+# Lecture des stats Instagram (lancement manuel depuis l'onglet Actions, ou par Claude).
+#   check    : vérifie la clé du classeur choisi et affiche ses 10 derniers posts avec leurs stats
+#   snapshot : ajoute le relevé du jour à data/instagram/<classeur>.json et le pousse
+# Les clés sont dans Settings → Secrets and variables → Actions : IG_TOKEN_BEN, IG_TOKEN_ALICE, IG_TOKEN_MORGANE, IG_TOKEN_EMY.
+name: Instagram
+
+on:
+  workflow_dispatch:
+    inputs:
+      owner:
+        description: Classeur
+        type: choice
+        options: [ben, alice, morgane, emy]
+        default: ben
+      mode:
+        description: check (vérifier la clé) ou snapshot (relevé du jour)
+        type: choice
+        options: [check, snapshot]
+        default: check
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram
+  cancel-in-progress: false
+
+jobs:
+  instagram:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Instagram ${{ inputs.mode }} (${{ inputs.owner }})
+        run: npx tsx scripts/instagram.ts "$MODE" --owner "$OWNER"
+        env:
+          MODE: ${{ inputs.mode }}
+          OWNER: ${{ inputs.owner }}
+          IG_TOKEN_BEN: ${{ secrets.IG_TOKEN_BEN }}
+          IG_TOKEN_ALICE: ${{ secrets.IG_TOKEN_ALICE }}
+          IG_TOKEN_MORGANE: ${{ secrets.IG_TOKEN_MORGANE }}
+          IG_TOKEN_EMY: ${{ secrets.IG_TOKEN_EMY }}
+      - name: Enregistrer le relevé
+        if: inputs.mode == 'snapshot'
+        env:
+          OWNER: ${{ inputs.owner }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/instagram
+          if git diff --cached --quiet; then echo "Rien de nouveau."; exit 0; fi
+          git commit -m "Relevé Instagram ($OWNER)"
+          git push
