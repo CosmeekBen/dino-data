@@ -29,3 +29,14 @@ Ajouter une entrée dans `src/data/cards.json` (les données actuelles sont des 
 
 ## Génération des images
 `src/lib/curve.ts` lit la courbe (pic précoce → raptor, montée lente → sauropode, stable → ankylosaure, en dents de scie → spinosaure, vague → tricératops) et la rareté (engagement total). `npm run generate` envoie le prompt à l'API d'images OpenAI et écrit `public/cards/<id>.png`. Copier `.env.example` en `.env` et renseigner `OPENAI_API_KEY`. `--dry` affiche les prompts sans rien appeler. Tant que l'image n'existe pas, le site affiche une carte de secours.
+
+## Stats Instagram (en test)
+`scripts/instagram.ts` lit les stats d'un compte professionnel (Créateur ou Entreprise) via l'API Instagram.
+
+1. Compte Instagram en mode professionnel (Créateur ou Entreprise).
+2. [developers.facebook.com](https://developers.facebook.com/apps) → créer une app (type *Business*) → ajouter le produit **Instagram** → **API setup with Instagram login** → *Generate access tokens* → **Add account** et se connecter avec le compte Instagram. Copier la clé générée (valable 60 jours).
+3. Sur GitHub : *Settings → Secrets and variables → Actions → New repository secret* : `IG_TOKEN_BEN` (ou `IG_TOKEN_ALICE`, `IG_TOKEN_MORGANE`, `IG_TOKEN_EMY`).
+4. Onglet *Actions* → **Instagram** → *Run workflow* : `check` vérifie la clé et liste les derniers posts ; `snapshot` enregistre le relevé du jour dans `data/instagram/<classeur>.json`.
+
+En local : `IG_TOKEN_BEN=... npm run ig -- check --owner ben`.
+
