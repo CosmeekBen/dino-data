@@ -1,0 +1,1016 @@
+{
+  "people": [
+    {
+      "id": "alice",
+      "name": "Alice",
+      "color": "#e86a92"
+    },
+    {
+      "id": "morgane",
+      "name": "Morgane",
+      "color": "#6a8fe8"
+    },
+    {
+      "id": "emy",
+      "name": "Emy",
+      "color": "#59c9a5"
+    },
+    {
+      "id": "ben",
+      "name": "Ben",
+      "color": "#f0a64a"
+    }
+  ],
+  "cards": [
+    {
+      "id": "alice-1",
+      "owner": "alice",
+      "dino": "Rexita",
+      "postUrl": "https://www.instagram.com/p/DEMO000/",
+      "postedAt": "2026-01-03",
+      "stats": {
+        "likes": 302,
+        "comments": 12,
+        "shares": 13,
+        "saves": 10,
+        "reach": 2893,
+        "curve": [
+          1,
+          9,
+          15,
+          19,
+          22,
+          24,
+          25,
+          26,
+          26,
+          27,
+          27,
+          27,
+          27,
+          27
+        ]
+      }
+    },
+    {
+      "id": "alice-2",
+      "owner": "alice",
+      "dino": "Gigantor",
+      "postUrl": "https://www.instagram.com/p/DEMO001/",
+      "postedAt": "2026-01-10",
+      "stats": {
+        "likes": 978,
+        "comments": 71,
+        "shares": 49,
+        "saves": 80,
+        "reach": 12608,
+        "curve": [
+          354,
+          223,
+          141,
+          89,
+          56,
+          35,
+          22,
+          14,
+          9,
+          7,
+          7,
+          7,
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "id": "alice-3",
+      "owner": "alice",
+      "dino": "Piquepic",
+      "postUrl": "https://www.instagram.com/p/DEMO002/",
+      "postedAt": "2026-01-17",
+      "stats": {
+        "likes": 136,
+        "comments": 11,
+        "shares": 10,
+        "saves": 14,
+        "reach": 1415,
+        "curve": [
+          8,
+          9,
+          9,
+          10,
+          10,
+          10,
+          11,
+          11,
+          10,
+          10,
+          10,
+          10,
+          9,
+          9
+        ]
+      }
+    },
+    {
+      "id": "alice-4",
+      "owner": "alice",
+      "dino": "Brontomax",
+      "postUrl": "https://www.instagram.com/p/DEMO003/",
+      "postedAt": "2026-01-24",
+      "stats": {
+        "likes": 175,
+        "comments": 14,
+        "shares": 12,
+        "saves": 7,
+        "reach": 2211,
+        "curve": [
+          64,
+          40,
+          25,
+          16,
+          10,
+          6,
+          4,
+          3,
+          2,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "alice-5",
+      "owner": "alice",
+      "dino": "Zippy",
+      "postUrl": "https://www.instagram.com/p/DEMO004/",
+      "postedAt": "2026-01-31",
+      "stats": {
+        "likes": 81,
+        "comments": 5,
+        "shares": 6,
+        "saves": 8,
+        "reach": 927,
+        "curve": [
+          5,
+          5,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          5
+        ]
+      }
+    },
+    {
+      "id": "alice-6",
+      "owner": "alice",
+      "dino": "Cuirassor",
+      "postUrl": "https://www.instagram.com/p/DEMO005/",
+      "postedAt": "2026-02-07",
+      "stats": {
+        "likes": 1897,
+        "comments": 124,
+        "shares": 120,
+        "saves": 207,
+        "reach": 18207,
+        "curve": [
+          3,
+          58,
+          95,
+          120,
+          137,
+          148,
+          156,
+          162,
+          165,
+          168,
+          170,
+          171,
+          172,
+          172
+        ]
+      }
+    },
+    {
+      "id": "alice-7",
+      "owner": "alice",
+      "dino": "Triceraflo",
+      "postUrl": "https://www.instagram.com/p/DEMO006/",
+      "postedAt": "2026-02-14",
+      "stats": {
+        "likes": 114,
+        "comments": 4,
+        "shares": 8,
+        "saves": 9,
+        "reach": 1418,
+        "curve": [
+          41,
+          26,
+          16,
+          10,
+          6,
+          4,
+          3,
+          2,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "alice-8",
+      "owner": "alice",
+      "dino": "Spinomaniac",
+      "postUrl": "https://www.instagram.com/p/DEMO007/",
+      "postedAt": "2026-02-21",
+      "stats": {
+        "likes": 336,
+        "comments": 10,
+        "shares": 12,
+        "saves": 19,
+        "reach": 4389,
+        "curve": [
+          1,
+          10,
+          17,
+          21,
+          24,
+          26,
+          28,
+          29,
+          29,
+          30,
+          30,
+          30,
+          30,
+          31
+        ]
+      }
+    },
+    {
+      "id": "alice-9",
+      "owner": "alice",
+      "dino": "Plumette",
+      "postUrl": "https://www.instagram.com/p/DEMO008/",
+      "postedAt": "2026-02-28",
+      "stats": {
+        "likes": 586,
+        "comments": 35,
+        "shares": 24,
+        "saves": 32,
+        "reach": 4122,
+        "curve": [
+          4,
+          12,
+          27,
+          44,
+          59,
+          70,
+          77,
+          77,
+          70,
+          59,
+          44,
+          27,
+          12,
+          4
+        ]
+      }
+    },
+    {
+      "id": "alice-10",
+      "owner": "alice",
+      "dino": "Dentelune",
+      "postUrl": "https://www.instagram.com/p/DEMO009/",
+      "postedAt": "2026-03-07",
+      "stats": {
+        "likes": 352,
+        "comments": 25,
+        "shares": 16,
+        "saves": 31,
+        "reach": 2976,
+        "curve": [
+          2,
+          7,
+          16,
+          26,
+          36,
+          43,
+          46,
+          46,
+          43,
+          36,
+          26,
+          16,
+          7,
+          2
+        ]
+      }
+    },
+    {
+      "id": "alice-11",
+      "owner": "alice",
+      "dino": "Grosbec",
+      "postUrl": "https://www.instagram.com/p/DEMO010/",
+      "postedAt": "2026-03-14",
+      "stats": {
+        "likes": 87,
+        "comments": 4,
+        "shares": 5,
+        "saves": 7,
+        "reach": 864,
+        "curve": [
+          31,
+          19,
+          12,
+          8,
+          5,
+          3,
+          2,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "morgane-1",
+      "owner": "morgane",
+      "dino": "Mégalo",
+      "postUrl": "https://www.instagram.com/p/DEMO011/",
+      "postedAt": "2026-03-21",
+      "stats": {
+        "likes": 778,
+        "comments": 58,
+        "shares": 54,
+        "saves": 67,
+        "reach": 9893,
+        "curve": [
+          1,
+          24,
+          39,
+          49,
+          56,
+          61,
+          64,
+          66,
+          68,
+          69,
+          70,
+          70,
+          70,
+          71
+        ]
+      }
+    },
+    {
+      "id": "morgane-2",
+      "owner": "morgane",
+      "dino": "Tchoupisaure",
+      "postUrl": "https://www.instagram.com/p/DEMO012/",
+      "postedAt": "2026-03-28",
+      "stats": {
+        "likes": 166,
+        "comments": 9,
+        "shares": 10,
+        "saves": 18,
+        "reach": 1562,
+        "curve": [
+          10,
+          11,
+          11,
+          12,
+          12,
+          13,
+          13,
+          13,
+          13,
+          13,
+          12,
+          12,
+          11,
+          10
+        ]
+      }
+    },
+    {
+      "id": "morgane-3",
+      "owner": "morgane",
+      "dino": "Stégo",
+      "postUrl": "https://www.instagram.com/p/DEMO013/",
+      "postedAt": "2026-04-04",
+      "stats": {
+        "likes": 97,
+        "comments": 3,
+        "shares": 7,
+        "saves": 11,
+        "reach": 1203,
+        "curve": [
+          7,
+          11,
+          8,
+          5,
+          5,
+          7,
+          9,
+          8,
+          1,
+          7,
+          9,
+          12,
+          7,
+          1
+        ]
+      }
+    },
+    {
+      "id": "morgane-4",
+      "owner": "morgane",
+      "dino": "Rapidus",
+      "postUrl": "https://www.instagram.com/p/DEMO014/",
+      "postedAt": "2026-04-11",
+      "stats": {
+        "likes": 139,
+        "comments": 8,
+        "shares": 10,
+        "saves": 14,
+        "reach": 1054,
+        "curve": [
+          50,
+          32,
+          20,
+          13,
+          8,
+          5,
+          3,
+          2,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "morgane-5",
+      "owner": "morgane",
+      "dino": "Bouclier",
+      "postUrl": "https://www.instagram.com/p/DEMO015/",
+      "postedAt": "2026-04-18",
+      "stats": {
+        "likes": 699,
+        "comments": 35,
+        "shares": 15,
+        "saves": 57,
+        "reach": 6244,
+        "curve": [
+          1,
+          21,
+          35,
+          44,
+          50,
+          55,
+          58,
+          60,
+          61,
+          62,
+          63,
+          63,
+          63,
+          63
+        ]
+      }
+    },
+    {
+      "id": "morgane-6",
+      "owner": "morgane",
+      "dino": "Volcanix",
+      "postUrl": "https://www.instagram.com/p/DEMO016/",
+      "postedAt": "2026-04-25",
+      "stats": {
+        "likes": 775,
+        "comments": 50,
+        "shares": 41,
+        "saves": 61,
+        "reach": 6088,
+        "curve": [
+          47,
+          50,
+          53,
+          56,
+          58,
+          59,
+          60,
+          60,
+          60,
+          59,
+          57,
+          55,
+          52,
+          49
+        ]
+      }
+    },
+    {
+      "id": "morgane-7",
+      "owner": "morgane",
+      "dino": "Cornélie",
+      "postUrl": "https://www.instagram.com/p/DEMO017/",
+      "postedAt": "2026-05-02",
+      "stats": {
+        "likes": 1820,
+        "comments": 76,
+        "shares": 137,
+        "saves": 193,
+        "reach": 19239,
+        "curve": [
+          3,
+          55,
+          91,
+          115,
+          131,
+          143,
+          150,
+          155,
+          159,
+          161,
+          163,
+          164,
+          165,
+          165
+        ]
+      }
+    },
+    {
+      "id": "emy-1",
+      "owner": "emy",
+      "dino": "Pterodactile",
+      "postUrl": "https://www.instagram.com/p/DEMO018/",
+      "postedAt": "2026-05-09",
+      "stats": {
+        "likes": 74,
+        "comments": 4,
+        "shares": 4,
+        "saves": 8,
+        "reach": 1024,
+        "curve": [
+          1,
+          2,
+          3,
+          5,
+          7,
+          9,
+          10,
+          10,
+          9,
+          7,
+          5,
+          3,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "id": "emy-2",
+      "owner": "emy",
+      "dino": "Crocro",
+      "postUrl": "https://www.instagram.com/p/DEMO019/",
+      "postedAt": "2026-05-16",
+      "stats": {
+        "likes": 810,
+        "comments": 47,
+        "shares": 50,
+        "saves": 28,
+        "reach": 7058,
+        "curve": [
+          54,
+          55,
+          65,
+          29,
+          53,
+          58,
+          105,
+          59,
+          30,
+          51,
+          79,
+          77,
+          54,
+          41
+        ]
+      }
+    },
+    {
+      "id": "emy-3",
+      "owner": "emy",
+      "dino": "Nébuleux",
+      "postUrl": "https://www.instagram.com/p/DEMO020/",
+      "postedAt": "2026-05-23",
+      "stats": {
+        "likes": 3512,
+        "comments": 112,
+        "shares": 192,
+        "saves": 191,
+        "reach": 39196,
+        "curve": [
+          213,
+          227,
+          240,
+          252,
+          262,
+          269,
+          273,
+          274,
+          272,
+          267,
+          258,
+          248,
+          235,
+          222
+        ]
+      }
+    },
+    {
+      "id": "emy-4",
+      "owner": "emy",
+      "dino": "Fougère",
+      "postUrl": "https://www.instagram.com/p/DEMO021/",
+      "postedAt": "2026-05-30",
+      "stats": {
+        "likes": 408,
+        "comments": 27,
+        "shares": 21,
+        "saves": 13,
+        "reach": 5204,
+        "curve": [
+          27,
+          47,
+          37,
+          20,
+          15,
+          29,
+          34,
+          30,
+          26,
+          21,
+          35,
+          39,
+          27,
+          21
+        ]
+      }
+    },
+    {
+      "id": "emy-5",
+      "owner": "emy",
+      "dino": "Tonnerre",
+      "postUrl": "https://www.instagram.com/p/DEMO022/",
+      "postedAt": "2026-06-06",
+      "stats": {
+        "likes": 1878,
+        "comments": 107,
+        "shares": 150,
+        "saves": 204,
+        "reach": 20598,
+        "curve": [
+          137,
+          157,
+          156,
+          102,
+          98,
+          167,
+          237,
+          158,
+          69,
+          58,
+          175,
+          188,
+          137,
+          39
+        ]
+      }
+    },
+    {
+      "id": "ben-1",
+      "owner": "ben",
+      "dino": "Galopin",
+      "postUrl": "https://www.instagram.com/p/DEMO023/",
+      "postedAt": "2026-06-13",
+      "stats": {
+        "likes": 121,
+        "comments": 7,
+        "shares": 4,
+        "saves": 11,
+        "reach": 749,
+        "curve": [
+          9,
+          12,
+          10,
+          7,
+          2,
+          11,
+          13,
+          9,
+          1,
+          9,
+          9,
+          11,
+          9,
+          9
+        ]
+      }
+    },
+    {
+      "id": "ben-2",
+      "owner": "ben",
+      "dino": "Mammouthée",
+      "postUrl": "https://www.instagram.com/p/DEMO024/",
+      "postedAt": "2026-06-20",
+      "stats": {
+        "likes": 556,
+        "comments": 33,
+        "shares": 30,
+        "saves": 18,
+        "reach": 5149,
+        "curve": [
+          3,
+          12,
+          26,
+          41,
+          56,
+          67,
+          73,
+          73,
+          67,
+          56,
+          41,
+          26,
+          12,
+          3
+        ]
+      }
+    },
+    {
+      "id": "ben-3",
+      "owner": "ben",
+      "dino": "Ptérix",
+      "postUrl": "https://www.instagram.com/p/DEMO025/",
+      "postedAt": "2026-06-27",
+      "stats": {
+        "likes": 121,
+        "comments": 4,
+        "shares": 4,
+        "saves": 6,
+        "reach": 1269,
+        "curve": [
+          7,
+          8,
+          8,
+          9,
+          9,
+          9,
+          9,
+          10,
+          9,
+          9,
+          9,
+          9,
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "id": "ben-4",
+      "owner": "ben",
+      "dino": "Lavasaure",
+      "postUrl": "https://www.instagram.com/p/DEMO026/",
+      "postedAt": "2026-07-04",
+      "stats": {
+        "likes": 3084,
+        "comments": 185,
+        "shares": 129,
+        "saves": 265,
+        "reach": 25407,
+        "curve": [
+          187,
+          199,
+          211,
+          221,
+          230,
+          236,
+          240,
+          241,
+          239,
+          234,
+          227,
+          217,
+          207,
+          195
+        ]
+      }
+    },
+    {
+      "id": "ben-5",
+      "owner": "ben",
+      "dino": "Brumeux",
+      "postUrl": "https://www.instagram.com/p/DEMO027/",
+      "postedAt": "2026-07-11",
+      "stats": {
+        "likes": 1602,
+        "comments": 101,
+        "shares": 104,
+        "saves": 124,
+        "reach": 13168,
+        "curve": [
+          10,
+          34,
+          74,
+          119,
+          161,
+          193,
+          210,
+          210,
+          193,
+          161,
+          119,
+          74,
+          34,
+          10
+        ]
+      }
+    },
+    {
+      "id": "ben-6",
+      "owner": "ben",
+      "dino": "Orageuse",
+      "postUrl": "https://www.instagram.com/p/DEMO028/",
+      "postedAt": "2026-07-18",
+      "stats": {
+        "likes": 49,
+        "comments": 2,
+        "shares": 2,
+        "saves": 5,
+        "reach": 546,
+        "curve": [
+          16,
+          10,
+          6,
+          4,
+          3,
+          2,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "ben-7",
+      "owner": "ben",
+      "dino": "Pompon",
+      "postUrl": "https://www.instagram.com/p/DEMO029/",
+      "postedAt": "2026-07-25",
+      "stats": {
+        "likes": 694,
+        "comments": 36,
+        "shares": 29,
+        "saves": 61,
+        "reach": 7069,
+        "curve": [
+          4,
+          15,
+          32,
+          52,
+          70,
+          83,
+          91,
+          91,
+          83,
+          70,
+          52,
+          32,
+          15,
+          4
+        ]
+      }
+    },
+    {
+      "id": "ben-8",
+      "owner": "ben",
+      "dino": "Titanide",
+      "postUrl": "https://www.instagram.com/p/DEMO030/",
+      "postedAt": "2026-08-01",
+      "stats": {
+        "likes": 640,
+        "comments": 45,
+        "shares": 50,
+        "saves": 60,
+        "reach": 8350,
+        "curve": [
+          41,
+          69,
+          55,
+          37,
+          20,
+          44,
+          62,
+          49,
+          32,
+          23,
+          55,
+          74,
+          41,
+          38
+        ]
+      }
+    },
+    {
+      "id": "ben-9",
+      "owner": "ben",
+      "dino": "Coquelicot",
+      "postUrl": "https://www.instagram.com/p/DEMO031/",
+      "postedAt": "2026-08-08",
+      "stats": {
+        "likes": 356,
+        "comments": 23,
+        "shares": 7,
+        "saves": 23,
+        "reach": 2285,
+        "curve": [
+          128,
+          81,
+          51,
+          32,
+          20,
+          13,
+          8,
+          5,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    },
+    {
+      "id": "ben-10",
+      "owner": "ben",
+      "dino": "Dynamite",
+      "postUrl": "https://www.instagram.com/p/DEMO032/",
+      "postedAt": "2026-08-15",
+      "stats": {
+        "likes": 330,
+        "comments": 26,
+        "shares": 20,
+        "saves": 26,
+        "reach": 2293,
+        "curve": [
+          2,
+          7,
+          15,
+          25,
+          33,
+          40,
+          43,
+          43,
+          40,
+          33,
+          25,
+          15,
+          7,
+          2
+        ]
+      }
+    }
+  ]
+}
