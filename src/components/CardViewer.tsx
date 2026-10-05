@@ -102,7 +102,8 @@ export function CardViewer({ card, owner, from, onClose }: Props) {
           </div>
 
           <a className="post-link" href={card.postUrl} target="_blank" rel="noreferrer noopener">
-            Voir le post Instagram ↗
+            <span>Voir le post Instagram</span>
+            <span aria-hidden>↗</span>
           </a>
           <small className="date">
             Publié le {new Date(card.postedAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
