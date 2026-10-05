@@ -9,6 +9,14 @@ npm run generate   # génère les images manquantes (voir plus bas)
 npm run build
 ```
 
+## Le classeur
+Les classeurs sont dessinés en 3D sur un bureau en bois : simili-cuir grainé, surpiqûres, dorure, porte-étiquette, anneaux chromés et pages à pochettes plastiques (textures procédurales dans `src/lib/textures.ts`).
+
+- **Tourner une page** : attraper le bord d'une page (ou de la couverture) et la faire glisser ; elle se plie et suit le doigt/la souris, puis retombe selon l'élan. Un clic, les flèches du clavier ou les boutons font la même chose en automatique.
+- Au survol du bord, le coin se soulève légèrement.
+- `src/lib/binderGeometry.ts` : géométrie (anneaux, dos, pages découpées en bandes pour la courbure), projection et éclairage.
+- `src/lib/binderEngine.ts` : physique (glisser, ressort, rebond) et rendu — chaque face est projetée avec une `matrix3d` et l'ordre de peinture est géré à la main (plus fiable que le tri 3D du navigateur quand les anneaux traversent les pages).
+
 ## Ajouter une carte
 Ajouter une entrée dans `src/data/cards.json` (les données actuelles sont des **données de démo**) :
 

@@ -5,9 +5,12 @@ import { Sparkline } from './Sparkline'
 
 export const cardImageUrl = (id: string) => `${import.meta.env.BASE_URL}cards/${id}.png`
 
+/** Images déjà essayées : évite qu'une copie de carte (page en train de tourner) reclignote. */
+const missing = new Set<string>()
+
 /** Image GPT de la carte, ou une carte de secours dessinée en CSS tant qu'elle n'est pas générée. */
 export function CardFace({ card }: { card: DinoCard }) {
-  const [failed, setFailed] = useState(false)
+  const [failed, setFailed] = useState(() => missing.has(card.id))
   const rarity = rarityOf(card.stats)
   const a = ARCHETYPES[analyzeCurve(card.stats.curve).archetype]
 
@@ -18,7 +21,10 @@ export function CardFace({ card }: { card: DinoCard }) {
         src={cardImageUrl(card.id)}
         alt={`Carte ${card.dino}`}
         draggable={false}
-        onError={() => setFailed(true)}
+        onError={() => {
+          missing.add(card.id)
+          setFailed(true)
+        }}
       />
     )
   }
